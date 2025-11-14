@@ -1,6 +1,7 @@
 package com.web.mvc.controllers;
 
 import com.web.mvc.dtos.EmployeeDto;
+import com.web.mvc.entities.SalaryAccount;
 import com.web.mvc.exceptions.ResourceNotFoundException;
 import com.web.mvc.services.EmployeeService;
 import jakarta.validation.Valid;
@@ -71,6 +72,12 @@ public class EmployeeController {
         EmployeeDto employeeDto = employeeService.updateEmployeePartially(id, updates);
         if(employeeDto == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(employeeDto);
+    }
+
+    @PutMapping("/incrementAccountBalance/{accId}")
+    public ResponseEntity<SalaryAccount> incrementAccountBalance(@PathVariable(name = "accId")Long accId){
+        SalaryAccount salaryAccount = employeeService.incrementAccountBalance(accId);
+        return ResponseEntity.ok(salaryAccount);
     }
 
 }
